@@ -1,5 +1,6 @@
 <template>
-  <div class="hello">
+  <div class="main-box">
+    <goods-filter @onClick="onClick"></goods-filter>
     <div v-infinite-scroll="loadMore"
     infinite-scroll-disabled="loading"
     infinite-scroll-distance="30" v-if="cardList.length>0">
@@ -10,14 +11,19 @@
 
 <script>
 import card from '@/components/card'
+import goodsFilter from '@/components/goodsFilter'
 import api from '@/utils/api'
 export default {
   name: 'hall',
   components: {
-    card
+    card, goodsFilter
   },
   data () {
     return {
+      currentPage: 1,
+      pageSize: 20,
+      total: 0,
+      filter: {},
       loading: false,
       cardList: []
     }
@@ -26,12 +32,27 @@ export default {
     this.getGoods()
   },
   methods: {
+    onClick (e) {
+      this.filter = e
+      this.pageSize = 20
+      this.getGoods()
+      console.log('onClick', e)
+    },
     getGoods () {
-      api.get(`/getGoods`).then(res => {
+      const params = {
+        currentPage: this.currentPage,
+        pageSize: this.pageSize,
+        filter: this.filter
+      }
+      api.get(`/getGoods`, {params}).then(res => {
         // this.$store.dispatch('setLoadingState', false)
         if (res.status === 200 && res.data) {
           console.log('suggestion', res.data.data)
+          this.total = res.data.total
           this.cardList = res.data.data
+          if (this.cardList.length === this.total) {
+            this.loading = true
+          }
         }
       }).catch(err => {
         console.log(err)
@@ -39,11 +60,18 @@ export default {
       })
     },
     loadMore () {
-      this.loading = true
+      if (this.loading) {
+        return
+      }
+      console.log('loadMore')
       setTimeout(() => {
+        this.pageSize = this.pageSize + 20
+        console.log('this.pageSize', this.pageSize)
+        this.getGoods()
         // this.cardList = this.storyData.slice(0, this.cardList.length + 5)
         this.loading = false
       }, 500)
+      this.loading = true
     }
   }
 }
@@ -51,8 +79,9 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
+.main-box {
+  width: 100vw;
+  background-color: black;
 }
 ul {
   list-style-type: none;

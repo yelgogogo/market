@@ -19,4 +19,12 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
 }
+
+.mint-cell {
+  background-color: transparent!important;
+}
+
+.mint-checklist-label {
+  text-align: left!important;
+}
 </style>

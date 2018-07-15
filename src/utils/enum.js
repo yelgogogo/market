@@ -9,6 +9,8 @@ const PROP = {
   'BAR_SKILL_TXT': '野蛮人技能',
   'P': 'PAL_SKILL',
   'PAL_SKILL_TXT': '圣骑士技能',
+  'AMA': 'AMA_SKILL',
+  'AMA_SKILL_TXT': '亚马逊技能',
   'DEX': 'DEX',
   'DEX_TXT': '敏捷',
   '冰冻减半': 'HFD',
@@ -87,6 +89,7 @@ const CATEGORY = {
   '盾牌:': 'SHIELD',
   'SHIELD_TXT': '盾牌'
 }
+
 module.exports = {
   PROP, CATEGORY
 }
