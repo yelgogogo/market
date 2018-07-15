@@ -27,4 +27,9 @@ export default {
 .mint-checklist-label {
   text-align: left!important;
 }
+
+.mint-radiolist-label {
+  text-align: left!important;
+}
+
 </style>

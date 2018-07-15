@@ -2,6 +2,22 @@ const OPTIONS = [
   {
     show: false,
     checked: [],
+    code: 'CATEGORY',
+    name: '分类',
+    group: [
+      {label: '所有', value: 'ALL'},
+      {label: '项链', value: 'AMULET'},
+      {label: '戒指', value: 'RING'},
+      {label: '鞋子', value: 'BOOTS'},
+      {label: '盾牌', value: 'SHIELD'},
+      {label: '腰带', value: 'BELT'},
+      {label: '盔甲', value: 'ARMOR'},
+      {label: '头盔', value: 'HELMET'}
+    ]
+  },
+  {
+    show: false,
+    checked: [],
     code: 'SKILL',
     name: '技能',
     group: [
@@ -43,7 +59,9 @@ const OPTIONS = [
     code: 'EFFECT',
     name: '特效',
     group: [
+      {label: '高速施展', value: 'FCR'},
       {label: '生命偷取', value: 'LL'},
+
       {label: '法力偷取', value: 'LM'}
     ]
   }

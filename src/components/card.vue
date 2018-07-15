@@ -6,7 +6,7 @@
         <img :src="getImg(card.category)">
       </div>
       <div class="show-box-prop">
-        <div v-for="goodsProp in goodsProps" :key="goodsProp.name">{{PROP[goodsProp.name+'_TXT']}} {{goodsProp.value}}</div>
+        <div v-for="(goodsProp, index) in goodsProps" :key="index">{{PROP[goodsProp.name+'_TXT']}} {{goodsProp.value}}</div>
       </div>
     </div>
     <div class="text-box">

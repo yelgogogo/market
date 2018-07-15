@@ -7,9 +7,14 @@
           <i v-if="option.show" class="iconfont icon-down"></i>
           <i v-if="!option.show" class="iconfont icon-left"></i>
       </div>
-      <mt-checklist v-if="option.show"
+      <mt-radio v-if="option.show && option.code==='CATEGORY'"
+        v-model="category"
+        class="goods-info"
+        :options="option.group">
+      </mt-radio>
+      <mt-checklist v-if="option.show && option.code!=='CATEGORY'"
         align="left"
-        class="goods-filter-check"
+        class="goods-info"
         v-model="option.checked"
         :options="option.group">
       </mt-checklist>
@@ -31,6 +36,7 @@ export default {
   },
   data () {
     return {
+      category: undefined,
       filter: {},
       options: OPTIONS,
       PROP: PROP,
@@ -46,6 +52,10 @@ export default {
   methods: {
     searchGoods () {
       let selected = {}
+      console.log('this.category', this.category)
+      if (this.category && this.category !== 'ALL') {
+        selected.category = this.category
+      }
       this.options.forEach(element => {
         if (element.checked.length > 0) {
           element.checked.forEach(el => {
@@ -106,7 +116,7 @@ export default {
   line-height: 40px;
 }
 
-.goods-filter-check {
+.goods-info {
   color: #b89d70;
 }
 

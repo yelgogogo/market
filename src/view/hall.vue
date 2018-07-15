@@ -52,6 +52,8 @@ export default {
           this.cardList = res.data.data
           if (this.cardList.length === this.total) {
             this.loading = true
+          } else {
+            this.loading = false
           }
         }
       }).catch(err => {
@@ -69,7 +71,6 @@ export default {
         console.log('this.pageSize', this.pageSize)
         this.getGoods()
         // this.cardList = this.storyData.slice(0, this.cardList.length + 5)
-        this.loading = false
       }, 500)
       this.loading = true
     }
