@@ -1,11 +1,10 @@
 <template>
   <div class="main-box">
-    <mt-header fixed title="混沌交易所">
+    <mt-header fixed title="fixed top">
       <mt-button icon="search" slot="left" @click="openSearch"></mt-button>
     </mt-header>
     <mt-popup
       v-model="popupSearch"
-      class="popup-search"
       position="right">
       <goods-filter @onClick="onClick"></goods-filter>
     </mt-popup>
@@ -49,7 +48,6 @@ export default {
       this.filter = e
       this.pageSize = 20
       this.getGoods()
-      this.popupSearch = false
       console.log('onClick', e)
     },
     getGoods () {
@@ -95,14 +93,8 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .main-box {
-  width: 100%;
+  width: 100vw;
   background-color: black;
-}
-.popup-search {
-  height: 100%;
-  width: 70%;
-  background-color: black;
-  overflow-y: scroll;
 }
 ul {
   list-style-type: none;

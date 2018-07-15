@@ -14,9 +14,11 @@
       <div>{{card.text}}</div>
     </div>
     <div class="text-box-price">
-      <img v-if="card.priceUnit==='IST'" src="static/img/IST.gif">
-      <img v-if="card.priceUnit==='PG'" src="static/img/PG.gif">
-      {{card.price}}
+      <div class="text-box-owner">
+        <img v-if="card.priceUnit==='IST'" src="static/img/IST.gif">
+        <img v-if="card.priceUnit==='PG'" src="static/img/PG.gif">
+        {{card.price}}
+      </div>
     </div>
   </div>
 </template>
@@ -60,12 +62,7 @@ export default {
       return Math.ceil(Math.random() * max)
     },
     getImg (category) {
-      let imgUrl = ''
-      switch (category) {
-        case 'AMULET':
-          imgUrl = `static/img/amulet-${this.random(3)}.gif`
-          break
-      }
+      let imgUrl = `static/img/${category}-${this.random(6)}.gif`
       return imgUrl
     },
     expandCard () {
@@ -89,23 +86,24 @@ export default {
   background-color: black;
   color: #4850b8;
   display: inline-flex;
-  width: 100vw;
+  width: 100%;
 }
 
 .text-box {
   background-color: black;
   display: inline-flex;
   color: #b26400;
-  width: 100vw;
+  width: 100%;
 }
 
 .text-box-owner {
-  width: 30vw;
+  text-align: center;
+  width: 30%;
 }
 
 .text-box-price {
   background-color: black;
-  width: 100vw;
+  width: 100%;
   color: #f5d58f;
   font-size: x-large;
   font-weight: 700;
@@ -114,11 +112,11 @@ export default {
 }
 
 .show-box-item {
-  width: 30vw;
+  width: 30%;
 }
 
 .show-box-prop {
-  width: 70vw;
+  width: 70%;
 }
 
 .expandCard {

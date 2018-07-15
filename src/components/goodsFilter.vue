@@ -94,7 +94,7 @@ export default {
 </script>
 <style scoped>
 .search-btn-box {
-  width: 100vw;
+  width: 100%;
   box-sizing: border-box;
   padding: 20px;
   padding: 20px;
@@ -127,14 +127,14 @@ export default {
   background-color: black;
   color: #4850b8;
   display: inline-flex;
-  width: 100vw;
+  width: 100%;
 }
 
 .text-box {
   background-color: black;
   display: inline-flex;
   color: #b26400;
-  width: 100vw;
+  width: 100%;
 }
 
 .text-box-owner {
@@ -143,7 +143,7 @@ export default {
 
 .text-box-price {
   background-color: black;
-  width: 100vw;
+  width: 100%;
   color: #f5d58f;
   font-size: x-large;
   font-weight: 700;
