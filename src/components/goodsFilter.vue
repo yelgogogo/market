@@ -63,6 +63,7 @@ export default {
           })
         }
       })
+      console.log(this.options)
       this.$emit('onClick', selected)
     },
     selectCell (option) {

@@ -39,6 +39,7 @@ export default {
     }
   },
   created () {
+    console.log(this.$route.query)
     this.getGoods()
   },
   methods: {
@@ -53,6 +54,9 @@ export default {
       console.log('onClick', e)
     },
     getGoods () {
+      if (this.$route.query.owner) {
+        this.filter.owner = this.$route.query.owner
+      }
       const params = {
         currentPage: this.currentPage,
         pageSize: this.pageSize,
