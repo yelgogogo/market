@@ -2,6 +2,10 @@
   <div class="main-box">
     <mt-header fixed title="混沌交易所">
       <mt-button icon="search" slot="left" @click="openSearch"></mt-button>
+      <mt-button slot="right" @click="changeSorter">
+        <span v-if="sorter.asc">价格升序</span>
+        <span v-else>价格降序</span>
+      </mt-button>
     </mt-header>
     <mt-popup
       v-model="popupSearch"
@@ -33,6 +37,10 @@ export default {
       pageSize: 20,
       total: 0,
       filter: {},
+      sorter: {
+        name: 'priceValue',
+        asc: false
+      },
       popupSearch: false,
       loading: false,
       cardList: []
@@ -43,6 +51,10 @@ export default {
     this.getGoods()
   },
   methods: {
+    changeSorter () {
+      this.sorter.asc = !this.sorter.asc
+      this.getGoods()
+    },
     openSearch () {
       this.popupSearch = true
     },
@@ -60,7 +72,8 @@ export default {
       const params = {
         currentPage: this.currentPage,
         pageSize: this.pageSize,
-        filter: this.filter
+        filter: this.filter,
+        sorter: this.sorter
       }
       api.get(`/getGoods`, {params}).then(res => {
         // this.$store.dispatch('setLoadingState', false)
