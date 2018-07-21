@@ -10,7 +10,8 @@
       </div>
     </div>
     <div class="text-box">
-      <div class="text-box-owner">{{card.owner}}</div>
+        <a class="text-box-url" :href="card.url" target="_blank">{{card.owner}}</a>
+      <!-- <div class="text-box-owner">{{card.owner}}</div> -->
       <div>{{card.text}}</div>
     </div>
     <div class="text-box-price">
@@ -94,6 +95,12 @@ export default {
   display: inline-flex;
   color: #b26400;
   width: 100%;
+}
+
+.text-box-url {
+  text-align: center;
+  color: #b26400;
+  width: 30%;
 }
 
 .text-box-owner {
