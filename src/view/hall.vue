@@ -13,7 +13,7 @@
       position="right">
       <goods-filter @onClick="onClick"></goods-filter>
     </mt-popup>
-
+    <type-bar></type-bar>
     <div v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="30" v-if="cardList.length>0"
@@ -26,12 +26,13 @@
 <script>
 import card from '@/components/card'
 import goodsFilter from '@/components/goodsFilter'
+import typeBar from '@/components/type-bar'
 import api from '@/utils/api'
 import { Indicator } from 'mint-ui'
 export default {
   name: 'hall',
   components: {
-    card, goodsFilter
+    card, goodsFilter, typeBar
   },
   data () {
     return {
