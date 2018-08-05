@@ -81,7 +81,7 @@ export default {
         spinnerType: 'fading-circle'
       })
 
-      api.get(`/getGoods`, {params}).then(res => {
+      api.get(`/getSales`, {params}).then(res => {
         // this.$store.dispatch('setLoadingState', false)
         Indicator.close()
         if (res.status === 200 && res.data) {

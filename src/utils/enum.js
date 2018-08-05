@@ -1,4 +1,6 @@
 const PROP = {
+  'X': 'X',
+  'X_TXT': '数量',
   'S': 'SOR_SKILL',
   'SOR': 'SOR_SKILL',
   '法师': 'SOR_SKILL',
