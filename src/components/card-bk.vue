@@ -1,5 +1,19 @@
 <template>
   <div class="header">
+    <div class="show-box">
+      <div class="show-box-item">
+        <div class="show-box-category">{{CATEGORY[card.category + '_TXT']}}</div>
+        <img :src="getImg(card.category)">
+      </div>
+      <div class="show-box-prop">
+        <div v-for="(goodsProp, index) in goodsProps" :key="index">{{PROP[goodsProp.name+'_TXT']}} {{goodsProp.value}}</div>
+      </div>
+    </div>
+    <div class="text-box">
+        <a class="text-box-url" :href="card.url" target="_blank">{{card.owner}}</a>
+      <!-- <div class="text-box-owner">{{card.owner}}</div> -->
+      <div>{{card.text}}</div>
+    </div>
     <div class="text-box-price">
       <div class="text-box-owner">
         <img v-if="card.priceUnit==='IST'" src="static/img/IST.gif">
@@ -7,20 +21,6 @@
         {{card.price}}
       </div>
     </div>
-    <div class="show-box">
-      <div class="show-box-item">
-        <!-- <div class="show-box-category">{{CATEGORY[card.category + '_TXT']}}</div> -->
-        <img :src="getImg(card.category)">
-      </div>
-      <div class="show-box-prop">
-        <div v-for="(goodsProp, index) in goodsProps" :key="index">{{PROP[goodsProp.name+'_TXT']}} {{goodsProp.value}}</div>
-      </div>
-    </div>
-    <!-- <div class="text-box">
-        <a class="text-box-url" :href="card.url" target="_blank">{{card.owner}}</a>
-      <div>{{card.text}}</div>
-    </div> -->
-
   </div>
 </template>
 
@@ -86,6 +86,7 @@ export default {
 .show-box {
   background-color: black;
   color: #4850b8;
+  display: inline-flex;
   width: 100%;
 }
 
@@ -103,8 +104,8 @@ export default {
 }
 
 .text-box-owner {
-  text-align: left;
-  width: 100%;
+  text-align: center;
+  width: 30%;
 }
 
 .text-box-price {
@@ -114,15 +115,15 @@ export default {
   font-size: x-large;
   font-weight: 700;
   text-align: left;
-
+  border-bottom: #786f6f 6px solid;
 }
 
 .show-box-item {
-  width: 100%;
+  width: 30%;
 }
 
 .show-box-prop {
-  width: 100%;
+  width: 70%;
 }
 
 .expandCard {

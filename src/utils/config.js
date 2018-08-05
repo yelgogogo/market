@@ -62,7 +62,8 @@ const OPTIONS = [
       {label: '高速施展', value: 'FCR'},
       {label: '生命偷取', value: 'LL'},
 
-      {label: '法力偷取', value: 'LM'}
+      {label: '法力偷取', value: 'LM'},
+      {label: '获得魔法装备', value: 'MF'}
     ]
   }
 ]

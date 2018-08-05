@@ -15,9 +15,10 @@
     </mt-popup>
 
     <div v-infinite-scroll="loadMore"
-    infinite-scroll-disabled="loading"
-    infinite-scroll-distance="30" v-if="cardList.length>0">
-      <card v-for="card in cardList" :card="card" :key="card._id"></card>
+      infinite-scroll-disabled="loading"
+      infinite-scroll-distance="30" v-if="cardList.length>0"
+      class="cardList-box">
+      <card class="card-box" v-for="card in cardList" :card="card" :key="card._id"></card>
     </div>
   </div>
 </template>
@@ -26,6 +27,7 @@
 import card from '@/components/card'
 import goodsFilter from '@/components/goodsFilter'
 import api from '@/utils/api'
+import { Indicator } from 'mint-ui'
 export default {
   name: 'hall',
   components: {
@@ -75,8 +77,14 @@ export default {
         filter: this.filter,
         sorter: this.sorter
       }
+      Indicator.open({
+        text: 'Loading...',
+        spinnerType: 'fading-circle'
+      })
+
       api.get(`/getGoods`, {params}).then(res => {
         // this.$store.dispatch('setLoadingState', false)
+        Indicator.close()
         if (res.status === 200 && res.data) {
           console.log('suggestion', res.data.data)
           this.total = res.data.total
@@ -111,6 +119,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.cardList-box {
+  display: flex;
+  flex-flow: row;
+  flex-wrap: wrap;
+}
+.card-box {
+  width: 50%;
+  box-sizing: border-box;
+  border-bottom: #5a5a5a 1px solid;
+}
 .main-box {
   width: 100%;
   background-color: black;
