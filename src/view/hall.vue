@@ -13,11 +13,13 @@
       position="right">
       <goods-filter @onClick="onClick"></goods-filter>
     </mt-popup>
-    <type-bar></type-bar>
+    <type-bar ></type-bar>
+    <link-bar class="link-bar-border"></link-bar>
     <div v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="30" v-if="cardList.length>0"
-      class="cardList-box">
+      class="card-list-box">
+      <div class="card-list-title">最新上架</div>
       <card class="card-box" v-for="card in cardList" :card="card" :key="card._id"></card>
     </div>
   </div>
@@ -27,12 +29,13 @@
 import card from '@/components/card'
 import goodsFilter from '@/components/goodsFilter'
 import typeBar from '@/components/type-bar'
+import linkBar from '@/components/link-bar'
 import api from '@/utils/api'
 import { Indicator } from 'mint-ui'
 export default {
   name: 'hall',
   components: {
-    card, goodsFilter, typeBar
+    card, goodsFilter, linkBar, typeBar
   },
   data () {
     return {
@@ -120,10 +123,19 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-.cardList-box {
+.link-bar-border {
+  border-top: #5a5a5a 1px solid;
+  border-bottom: #5a5a5a 1px solid;
+}
+.card-list-box {
   display: flex;
   flex-flow: row;
   flex-wrap: wrap;
+}
+.card-list-title {
+  width: 100%;
+  padding: 10px;
+  color: #b26400;
 }
 .card-box {
   width: 50%;
