@@ -1,6 +1,9 @@
 <template>
   <div class="main-box">
-    <mt-header fixed title="混沌交易所">
+    <mt-header fixed >
+      <div slot="left" class="left-btn" @click="goto('/')">
+        <i class="iconfont icon-left"></i>
+      </div>
       <!-- <mt-button icon="search" slot="left" @click="openSearch"></mt-button> -->
       <mt-button slot="right" @click="changeSorter">
         <span v-if="sorter.asc">价格升序</span>
@@ -13,13 +16,10 @@
       position="right">
       <goods-filter @onClick="onClick"></goods-filter>
     </mt-popup>
-    <type-bar @onClick="goto"></type-bar>
-    <link-bar class="link-bar-border"></link-bar>
     <div v-infinite-scroll="loadMore"
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="30" v-if="cardList.length>0"
       class="card-list-box">
-      <div class="card-list-title">最新上架</div>
       <card class="card-box" v-for="card in cardList" :card="card" :key="card._id"></card>
     </div>
   </div>
@@ -54,11 +54,12 @@ export default {
   },
   created () {
     console.log(this.$route.query)
+    this.filter = this.$route.query
     this.getGoods()
   },
   methods: {
-    goto (event) {
-      this.$router.push(`/type?category=${event}`)
+    goto (url) {
+      this.$router.push(url)
     },
     changeSorter () {
       this.sorter.asc = !this.sorter.asc

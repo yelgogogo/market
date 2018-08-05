@@ -1,6 +1,6 @@
 <template>
   <div class="link-bar">
-    <div class="link-bar-item" v-for="option in options" :key="option" @click="goto(option.link)" :class="{ active: select[option] }">
+    <div class="link-bar-item" v-for="option in options" :key="option.label" @click="goto(option.link)" :class="{ active: select[option] }">
         <img class="link-bar-item-img" :src="getImg(option.img)">
         <div class="link-bar-item-txt">{{option.label}}</div>
     </div>>
@@ -21,7 +21,7 @@ export default {
         {
           label: '精品赏析',
           img: 'HARMER',
-          link: '/type?type=AUCTION'
+          link: '/type?category=AUCTION'
         },
         {
           label: '快捷寄售',
