@@ -97,12 +97,17 @@ export default {
         // this.$store.dispatch('setLoadingState', false)
         Indicator.close()
         if (res.status === 200 && res.data) {
-
+          this.getMailCount()
+          Toast({
+            message: '购买成功',
+            position: 'bottom',
+            duration: 2000
+          })
         } else {
           Toast({
             message: '购买失败',
             position: 'bottom',
-            duration: 5000
+            duration: 2000
           })
         }
         this.getGoods()

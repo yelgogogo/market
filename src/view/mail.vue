@@ -5,15 +5,17 @@
         <i class="iconfont icon-left"></i>
       </div>
     </mt-header>
-    <div class="mail-box-item" v-for="mail in mails" :key="mail._id" @click="goto(mail.link)" :class="{ active: select[mail._id] }">
+    <div class="mail-box-item" v-for="mail in mails" :key="mail._id" :class="{ active: select[mail._id] }">
+      <div class="mail-time">{{mail.time}}</div>
+      <div class="mail-close" @click="deleteMail(mail)"><i class="iconfont icon-guanbi"></i></div>
       <div class="mail-title">{{TRANS_STATUS[mail.status]}} {{mail.text}}</div>
-      <div class="mail-content"><span>物品账号: </span><span>{{mail.account.IACC}} </span>
+      <div class="mail-content"><span class="mail-name">物品账号: </span><span>{{mail.account.IACC}} </span>
       </div>
-      <div class="mail-content"><span>密码: </span><span>{{mail.account.IPSW}} </span>
+      <div class="mail-content"><span class="mail-name">密码: </span><span>{{mail.account.IPSW}} </span>
       </div>
-      <div class="mail-content"><span>收钱账号: </span><span>{{mail.account.GACC}} </span>
+      <div class="mail-content"><span class="mail-name">收钱账号: </span><span>{{mail.account.GACC}} </span>
       </div>
-      <div class="mail-content"><span>密码: </span><span>{{mail.account.GPSW}} </span>
+      <div class="mail-content"><span class="mail-name">密码: </span><span>{{mail.account.GPSW}} </span>
       </div>
     </div>
   </div>
@@ -22,6 +24,7 @@
 <script>
 import api from '@/utils/api'
 import {TRANS_STATUS} from '@/utils/enum'
+import {Indicator, Toast} from 'mint-ui'
 export default {
   name: 'mail',
   // props: ['filter'],
@@ -57,8 +60,32 @@ export default {
     goto (url) {
       this.$router.push(url)
     },
+    deleteMail (mail) {
+      const params = {
+        _id: mail._id
+      }
+
+      api.get(`/deleteMail`, {params}).then(res => {
+        if (res.status === 200 && res.data) {
+          Toast({
+            message: '删除成功',
+            position: 'bottom',
+            duration: 1000
+          })
+          this.getMail()
+        }
+      }).catch(err => {
+        console.log(err)
+        // this.$store.dispatch('setLoadingState', false)
+      })
+    },
     getMail () {
+      Indicator.open({
+        text: 'Loading...',
+        spinnerType: 'fading-circle'
+      })
       api.get(`/mails`, {}).then(res => {
+        Indicator.close()
         if (res.status === 200 && res.data) {
           this.mails = res.data
           console.log('mailCount', res.data)
@@ -72,10 +99,29 @@ export default {
 }
 </script>
 <style scoped>
+.mail-time {
+  position: absolute;
+  left: 10px;
+  color:#4850b8;
+}
+.icon-guanbi {
+  font-size: 24px;
+}
+.mail-close {
+  position: absolute;
+  right: 10px;
+  margin-top:4px;
+  margin-right: 4px;
+  color:#4850b8;
+}
+.mail-name {
+  color:#4850b8;
+}
 .mail-title {
   width: 100%;
   box-sizing: border-box;
   padding: 10px;
+  padding-top: 20px;
   text-align: left;
 }
 .mail-content {
@@ -83,9 +129,9 @@ export default {
   box-sizing: border-box;
   padding: 10px;
   text-align: left;
+
 }
 .mail-box {
- 
   background-color: black;
   color:#b26400;
   box-sizing: border-box;
