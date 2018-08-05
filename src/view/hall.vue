@@ -1,7 +1,7 @@
 <template>
   <div class="main-box">
     <mt-header fixed title="混沌交易所">
-      <mt-button icon="search" slot="left" @click="openSearch"></mt-button>
+      <!-- <mt-button icon="search" slot="left" @click="openSearch"></mt-button> -->
       <mt-button slot="right" @click="changeSorter">
         <span v-if="sorter.asc">价格升序</span>
         <span v-else>价格降序</span>

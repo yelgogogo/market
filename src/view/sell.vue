@@ -1,13 +1,17 @@
 <template>
   <div class="main-box">
-    <mt-header fixed title="混沌交易所">
-      <mt-button icon="search" slot="left" @click="openSearch"></mt-button>
+    <mt-header fixed title="寄售大厅">
+      <div slot="left" class="left-btn" @click="goto('/')">
+        <i class="iconfont icon-left"></i>
+      </div>
       <!-- <mt-button slot="right" @click="changeSorter">
         <span v-if="sorter.asc">价格升序</span>
         <span v-else>价格降序</span>
       </mt-button> -->
-      <div slot="right" class="right-btn" @click="goto('/mail')">
-        <i class="iconfont icon-mail"></i> <div class="badge">{{mailCount}}</div>
+      <div slot="right" class="right-btn">
+        <i class="iconfont icon-search" @click="openSearch"></i>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <i class="iconfont icon-mail" @click="goto('/mail')"></i> <div class="badge">{{mailCount}}</div>
       </div>
 
     </mt-header>
@@ -180,6 +184,9 @@ export default {
   text-align: center;
   line-height: 20px;
   transform: translateX(-10px);
+}
+.icon-search {
+  font-size: 32px;
 }
 .icon-mail {
   font-size: 32px;
