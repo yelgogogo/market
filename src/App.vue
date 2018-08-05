@@ -21,6 +21,8 @@ body {
   text-align: center;
   color: #2c3e50;
   margin-top: 40px;
+  background-color: black;
+  height: -webkit-fill-available;
 }
 
 .mint-cell {
