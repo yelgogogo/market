@@ -2,10 +2,14 @@
   <div class="main-box">
     <mt-header fixed title="混沌交易所">
       <mt-button icon="search" slot="left" @click="openSearch"></mt-button>
-      <mt-button slot="right" @click="changeSorter">
+      <!-- <mt-button slot="right" @click="changeSorter">
         <span v-if="sorter.asc">价格升序</span>
         <span v-else>价格降序</span>
-      </mt-button>
+      </mt-button> -->
+      <div slot="right" class="right-btn" @click="goto('/mail')">
+        <i class="iconfont icon-mail"></i> <div class="badge">{{mailCount}}</div>
+      </div>
+
     </mt-header>
     <mt-popup
       v-model="popupSearch"
@@ -17,7 +21,7 @@
       infinite-scroll-disabled="loading"
       infinite-scroll-distance="30" v-if="cardList.length>0"
       class="card-list-box">
-      <sell-card class="card-box" v-for="card in cardList" :card="card" :key="card._id"></sell-card>
+      <sell-card class="card-box" v-for="card in cardList" :card="card" :key="card._id" @buy="buy"></sell-card>
     </div>
   </div>
 </template>
@@ -26,7 +30,7 @@
 import sellCard from '@/components/sell-card'
 import goodsFilter from '@/components/goodsFilter'
 import api from '@/utils/api'
-import { Indicator } from 'mint-ui'
+import {Indicator, Toast} from 'mint-ui'
 export default {
   name: 'hall',
   components: {
@@ -42,16 +46,20 @@ export default {
         name: 'priceValue',
         asc: false
       },
+      mailCount: 0,
       popupSearch: false,
       loading: false,
       cardList: []
     }
   },
   created () {
-    console.log(this.$route.query)
     this.getGoods()
+    this.getMailCount()
   },
   methods: {
+    goto (url) {
+      this.$router.push(url)
+    },
     changeSorter () {
       this.sorter.asc = !this.sorter.asc
       this.getGoods()
@@ -65,6 +73,43 @@ export default {
       this.getGoods()
       this.popupSearch = false
       console.log('onClick', e)
+    },
+    getMailCount () {
+      api.get(`/mailCount`, {}).then(res => {
+        if (res.status === 200 && res.data) {
+          this.mailCount = res.data
+          console.log('mailCount', res.data)
+        }
+      }).catch(err => {
+        console.log(err)
+        // this.$store.dispatch('setLoadingState', false)
+      })
+    },
+    buy (goods) {
+      const params = {
+        _id: goods._id
+      }
+      Indicator.open({
+        text: 'Loading...',
+        spinnerType: 'fading-circle'
+      })
+      api.get(`/buy`, {params}).then(res => {
+        // this.$store.dispatch('setLoadingState', false)
+        Indicator.close()
+        if (res.status === 200 && res.data) {
+
+        } else {
+          Toast({
+            message: '购买失败',
+            position: 'bottom',
+            duration: 5000
+          })
+        }
+        this.getGoods()
+      }).catch(err => {
+        console.log(err)
+        // this.$store.dispatch('setLoadingState', false)
+      })
     },
     getGoods () {
       if (this.$route.query.owner) {
@@ -118,6 +163,22 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.right-btn {
+  display: flex;
+  justify-content: flex-end;
+}
+.badge {
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius : 20px;
+  text-align: center;
+  line-height: 20px;
+  transform: translateX(-10px);
+}
+.icon-mail {
+  font-size: 32px;
+}
 .link-bar-border {
   border-top: #5a5a5a 1px solid;
   border-bottom: #5a5a5a 1px solid;

@@ -19,7 +19,8 @@
         </div>
       </div>
       <div class="buy-btn">
-        <mt-button class="buy-txt" size="small" type="default" plain @click="buy">购买</mt-button>
+        <mt-button v-if="card.status==='SALE'" class="buy-txt" size="small" type="default" plain @click="buy(card)">购买</mt-button>
+        <div class="lock-txt" v-if="card.status==='LOCK'">交易中</div>
       </div>
     </div>
     <div class="text-box">
@@ -65,23 +66,25 @@ export default {
     // console.log(this.card)
   },
   methods: {
-    buy() {
+    buy (el) {
       MessageBox.confirm('', {
         message: '确认购买？',
         title: '提示',
         confirmButtonText: '购买',
         cancelButtonText: '取消'
       })
-      .then(action => {
-        if (action == 'confirm') {     //确认的回调
-        console.log(1);
-        }
-      })
-      .catch(err => {
-        if (err == 'cancel') {     //取消的回调
-        console.log(2);
-        }
-      });
+        .then(action => {
+          if (action === 'confirm') {
+            this.$emit('buy', el)
+          }
+        })
+        .catch(err => {
+          if (err === 'cancel') {
+          }
+        })
+    },
+    confirmBuy () {
+
     },
     random (max) {
       return Math.ceil(Math.random() * max)
@@ -110,6 +113,9 @@ export default {
 .buy-txt {
   color: #b89d70;
   border: 1px solid #b89d70;
+}
+.lock-txt {
+  color: #b89d70;
 }
 .buy-btn {
   display: flex;
