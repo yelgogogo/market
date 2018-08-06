@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import card from '@/components/card'
+import card from '@/components/auction-card'
 import goodsFilter from '@/components/goodsFilter'
 import typeBar from '@/components/type-bar'
 import linkBar from '@/components/link-bar'
