@@ -1,5 +1,10 @@
 <template>
-  <div class="header">
+  <div class="header" v-if="card.category">
+      <mt-header fixed >
+          <div slot="left" class="left-btn" @click="goBack">
+            <i class="iconfont icon-left"></i>
+          </div>
+        </mt-header>
     <div class="text-box-price">
       <div class="text-box-owner">
         <img v-if="card.priceUnit==='IST'" src="static/img/IST.gif">
@@ -8,7 +13,7 @@
       </div>
     </div>
     <div class="show-box">
-      <div class="show-box-item" @click="showDetail(card._id)" >
+      <div class="show-box-item">
         <!-- <div class="show-box-category">{{CATEGORY[card.category + '_TXT']}}</div> -->
         <img :src="getImg(card.category)">
       </div>
@@ -26,13 +31,17 @@
 
 <script>
 import {PROP, CATEGORY} from '@/utils/enum'
+import api from '@/utils/api'
+import { Indicator } from 'mint-ui'
 export default {
-  name: 'card',
-  props: ['card'],
+  name: 'detail',
   components: {
   },
   data () {
     return {
+      card: {
+        propArray: []
+      },
       PROP: PROP,
       CATEGORY: CATEGORY,
       expandflag: this.expand
@@ -45,22 +54,35 @@ export default {
       propArray = this.card.propArray.filter(c => {
         return !noneProp.includes(c.name)
       })
-      // for (let prop in this.card) {
-      //   const name = prop
-      //   const value = this.card[prop]
-      //   if (!noneProp.includes(prop)) {
-      //     propArray.push({name, value})
-      //   }
-      // }
       return propArray
     }
   },
   created () {
     // console.log(this.card)
+    this.getItem()
   },
   methods: {
-    showDetail (_id) {
-      this.$router.push(`/detail?_id=${_id}`)
+    goBack () {
+      this.$router.go(-1)
+    },
+    getItem () {
+      const params = {
+        _id: this.$route.query._id
+      }
+      Indicator.open({
+        text: 'Loading...',
+        spinnerType: 'fading-circle'
+      })
+      api.get(`/getItem`, {params}).then(res => {
+        // this.$store.dispatch('setLoadingState', false)
+        Indicator.close()
+        if (res.status === 200 && res.data) {
+          this.card = res.data
+        }
+      }).catch(err => {
+        console.log(err)
+        // this.$store.dispatch('setLoadingState', false)
+      })
     },
     random (max) {
       return Math.ceil(Math.random() * max)
@@ -68,12 +90,6 @@ export default {
     getImg (category) {
       let imgUrl = `static/img/${category}-${this.random(6)}.gif`
       return imgUrl
-    },
-    expandCard () {
-      this.expandflag = true
-    },
-    collapseCard () {
-      this.expandflag = false
     },
     commentButtonClick () {
       this.$emit('comment-button', this.card)
