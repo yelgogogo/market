@@ -4,6 +4,7 @@ import hall from '@/view/hall'
 import sell from '@/view/sell'
 import mail from '@/view/mail'
 import type from '@/view/type'
+import auction from '@/view/auction'
 
 Vue.use(Router)
 
@@ -13,6 +14,11 @@ export default new Router({
       path: '/',
       name: 'hall',
       component: hall
+    },
+    {
+      path: '/auction',
+      name: 'auction',
+      component: auction
     },
     {
       path: '/type',

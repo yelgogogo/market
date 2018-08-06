@@ -59,8 +59,6 @@ export default {
     }
   },
   created () {
-    console.log(this.$route.query)
-    this.filter = this.$route.query
     this.getGoods()
   },
   methods: {
@@ -96,7 +94,7 @@ export default {
         spinnerType: 'fading-circle'
       })
 
-      api.get(`/getGoods`, {params}).then(res => {
+      api.get(`/getAuction`, {params}).then(res => {
         // this.$store.dispatch('setLoadingState', false)
         Indicator.close()
         if (res.status === 200 && res.data) {

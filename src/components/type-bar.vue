@@ -27,7 +27,7 @@ export default {
   },
   methods: {
     getImg (category) {
-      let imgUrl = `static/img/${category}-1.gif`
+      let imgUrl = `static/img/${category}.png`
       return imgUrl
     },
     selected (option) {

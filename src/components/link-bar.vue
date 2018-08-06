@@ -21,7 +21,7 @@ export default {
         {
           label: '精品赏析',
           img: 'HARMER',
-          link: '/type?category=AUCTION'
+          link: '/auction'
         },
         {
           label: '快捷寄售',

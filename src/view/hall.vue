@@ -1,11 +1,10 @@
 <template>
   <div class="main-box">
     <mt-header fixed title="混沌交易所">
-      <!-- <mt-button icon="search" slot="left" @click="openSearch"></mt-button> -->
-      <mt-button slot="right" @click="changeSorter">
+      <!-- <mt-button slot="right" @click="changeSorter">
         <span v-if="sorter.asc">价格升序</span>
         <span v-else>价格降序</span>
-      </mt-button>
+      </mt-button> -->
     </mt-header>
     <mt-popup
       v-model="popupSearch"
@@ -59,10 +58,6 @@ export default {
   methods: {
     goto (event) {
       this.$router.push(`/type?category=${event}`)
-    },
-    changeSorter () {
-      this.sorter.asc = !this.sorter.asc
-      this.getGoods()
     },
     openSearch () {
       this.popupSearch = true

@@ -11,7 +11,7 @@
       <div slot="right" class="right-btn">
         <i class="iconfont icon-search" @click="openSearch"></i>
         &nbsp;&nbsp;&nbsp;&nbsp;
-        <i class="iconfont icon-mail" @click="goto('/mail')"></i> <div class="badge">{{mailCount}}</div>
+        <i class="iconfont icon-mail" @click="goto('/mail')"></i> <div v-if="mailCount" class="badge">{{mailCount}}</div>
       </div>
 
     </mt-header>
