@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="text-box">
-      <div>{{card.text}}</div>
+      <div>{{card.date}}</div>
     </div>
 
   </div>
