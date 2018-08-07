@@ -9,7 +9,7 @@
       </div>
     </div>
     <div class="show-box">
-      <div class="show-box-item">
+      <div class="show-box-item" @click="showDetail(card._id)">
         <!-- <div class="show-box-category">{{CATEGORY[card.category + '_TXT']}}</div> -->
         <img :src="getImg(card.category)">
       </div>
@@ -59,6 +59,9 @@ export default {
     // console.log(this.card)
   },
   methods: {
+    showDetail (_id) {
+      this.$router.push(`/detail?_id=${_id}&dbName=auction`)
+    },
     random (max) {
       return Math.ceil(Math.random() * max)
     },
